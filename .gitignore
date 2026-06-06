@@ -167,4 +167,4 @@ cython_debug/
 *.par
 
 # project environment
-env_recsys_start/
+env_recsys_start/requirements_no_lightfm.txt
