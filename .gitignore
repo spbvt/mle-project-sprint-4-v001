@@ -168,3 +168,4 @@ cython_debug/
 
 # project environment
 env_recsys_start/requirements_no_lightfm.txt
+catboost_info/
