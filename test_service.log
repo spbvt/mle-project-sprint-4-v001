@@ -1,0 +1,81 @@
+Service is ready
+{'status': 'ok'}
+
+=== Test 1: user without personal recommendations ===
+Expected: service returns top-popular fallback recommendations
+
+POST /recommendations
+params: {'user_id': 11374582, 'k': 5}
+status_code: 200
+{
+  "recs": [
+    53404,
+    33311009,
+    178529,
+    35505245,
+    24692821
+  ]
+}
+
+=== Test 2: user with personal recommendations, without online history ===
+Expected: service returns offline personal recommendations
+
+POST /recommendations
+params: {'user_id': 4, 'k': 5}
+status_code: 200
+{
+  "recs": [
+    1710810,
+    24327639,
+    986,
+    41625041,
+    679169
+  ]
+}
+
+=== Test 3: user with personal recommendations and online history ===
+Expected: service uses recent event and blends online/offline recommendations
+
+POST /put
+params: {'user_id': 5, 'track_id': 26}
+status_code: 200
+{
+  "result": "ok"
+}
+
+POST /get
+params: {'user_id': 5, 'k': 3}
+status_code: 200
+{
+  "events": [
+    26
+  ]
+}
+
+POST /recommendations_online
+params: {'user_id': 5, 'k': 5}
+status_code: 200
+{
+  "recs": [
+    21846409,
+    20111365,
+    26343802,
+    18992527,
+    107536
+  ]
+}
+
+POST /recommendations
+params: {'user_id': 5, 'k': 5}
+status_code: 200
+{
+  "recs": [
+    21846409,
+    328683,
+    20111365,
+    1710811,
+    26343802
+  ]
+}
+
+All tests passed
